@@ -1,0 +1,727 @@
+/*
+  UMSI Engaged Learning Office — mobile-first stylesheet
+  SI 539 Client Project, Deliverable 2 (mobile view)
+
+  Citations:
+  - Color values from University of Michigan Brand Guidelines:
+    https://brand.umich.edu/design-resources/colors/
+  - Atkinson Hyperlegible recommended on UM typography page:
+    https://brand.umich.edu/design-resources/typography/
+  - Skip-to-main pattern adapted from W3Schools “How TO - Skip to Main Content”:
+    https://www.w3schools.com/howto/howto_css_skip_navigation.asp
+  - Visible skip-link focus treatment also informed by The A11Y Project checklist:
+    https://www.a11yproject.com/checklist/
+  - Responsive video box uses the aspect-ratio approach described by MDN:
+    https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
+  - Card and two-column CSS Grid patterns informed by MDN CSS Grid Layout:
+    https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout
+  - prefers-reduced-motion rule follows WCAG 2.3.3 / A11Y Project animation guidance
+  - Subtle card hover motion inspired by layout rhythm on https://stylestage.dev/
+    (customized; not a copy of any Style Stage theme)
+*/
+
+/* Atkinson Hyperlegible self-hosted (OFL) so HTML only links two CSS files.
+   Font files from Google Fonts / Braille Institute. UM brand typography page
+   recommends this typeface for low-vision readability. */
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("../fonts/atkinson-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("../fonts/atkinson-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("../fonts/atkinson-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("../fonts/atkinson-bolditalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* --------------------------------------------------
+   Design tokens (UM brand)
+   -------------------------------------------------- */
+:root {
+  --maize: #ffcb05;
+  --blue: #00274c;
+  --white: #ffffff;
+  --puma-black: #131516;
+  --arboretum: #2f65a7;
+  --tappan: #9a3324;
+  --umma-tan: #cfc096;
+  --law-stone: #655a52;
+  --angell-ash: #989c97;
+  --paper: #f7f4ec;
+  --card: #ffffff;
+  --focus: #00274c;
+  --space: 1rem;
+  --space-lg: 1.75rem;
+  --radius: 0.65rem;
+  --tap: 3rem;
+  --shadow: 0 0.35rem 0.9rem rgba(0, 39, 76, 0.12);
+}
+
+/* --------------------------------------------------
+   Base
+   -------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+body {
+  font-family: "Atkinson Hyperlegible", "Segoe UI", Tahoma, sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--blue);
+  background-color: var(--paper);
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-wrap: break-word;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+p,
+ul,
+ol,
+address {
+  margin-bottom: 1rem;
+}
+
+ul,
+ol {
+  padding-left: 1.25rem;
+}
+
+li {
+  margin-bottom: 0.45rem;
+}
+
+strong {
+  font-weight: 700;
+}
+
+a {
+  color: var(--arboretum);
+  text-decoration: underline;
+  text-decoration-thickness: 0.12rem;
+  text-underline-offset: 0.18rem;
+}
+
+a:hover,
+a:focus {
+  color: var(--blue);
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--blue);
+  overflow-wrap: break-word;
+}
+
+h1 {
+  font-size: clamp(1.4rem, 5.6vw, 1.9rem);
+  margin-bottom: 0.75rem;
+}
+
+h2 {
+  font-size: clamp(1.22rem, 5.2vw, 1.5rem);
+  margin-bottom: 0.75rem;
+}
+
+h2::after {
+  content: "";
+  display: block;
+  width: 3.4rem;
+  height: 0.22rem;
+  background-color: var(--maize);
+  margin-top: 0.4rem;
+}
+
+h3 {
+  font-size: 1.12rem;
+  margin-bottom: 0.4rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip link: hidden until keyboard focus
+   Adapted from W3Schools skip navigation tutorial */
+.skip-link {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  z-index: 1000;
+  padding: 0.7rem 1rem;
+  background-color: var(--maize);
+  color: var(--blue);
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 0.4rem;
+  min-height: var(--tap);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.skip-link:focus {
+  clip-path: none;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  white-space: normal;
+  outline: 0.2rem solid var(--blue);
+  outline-offset: 0.15rem;
+}
+
+:focus-visible {
+  outline: 0.2rem solid var(--focus);
+  outline-offset: 0.15rem;
+}
+
+.skip-link:focus-visible,
+.site-nav a:focus-visible,
+.site-footer a:focus-visible {
+  outline-color: var(--maize);
+}
+
+/* --------------------------------------------------
+   Header + brand
+   -------------------------------------------------- */
+.site-header {
+  background-color: var(--white);
+  border-top: 0.45rem solid var(--maize);
+  padding: 0.85rem 4%;
+}
+
+.brand {
+  display: grid;
+  grid-template-columns: 4.4rem 1fr;
+  gap: 0.75rem;
+  align-items: center;
+  text-decoration: none;
+  color: var(--blue);
+  min-height: var(--tap);
+}
+
+.brand img {
+  width: 4.4rem;
+  height: auto;
+  border-radius: 0.4rem;
+}
+
+.brand-kicker {
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--law-stone);
+  margin-bottom: 0.15rem;
+}
+
+.brand-unit {
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* --------------------------------------------------
+   Navigation — 2-column Grid of large tap targets
+   -------------------------------------------------- */
+.site-nav {
+  background-color: var(--blue);
+  padding: 0.75rem 4% 0.9rem;
+}
+
+.site-nav .nav-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.site-nav a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.25rem;
+  padding: 0.75rem 0.45rem;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0;
+  text-align: center;
+  border-radius: 0.45rem;
+  border: 0.14rem solid transparent;
+  max-width: 100%;
+}
+
+.site-nav a:hover {
+  background-color: rgba(255, 203, 5, 0.18);
+  color: var(--maize);
+}
+
+/* Current page: maize fill + bold + left bar + underline
+   so identification is not color-only (WCAG 1.4.1) */
+.site-nav a[aria-current="page"] {
+  background-color: var(--maize);
+  color: var(--blue);
+  border-color: var(--white);
+  box-shadow: inset 0 -0.28rem 0 var(--tappan);
+  text-decoration: underline;
+  text-decoration-thickness: 0.16rem;
+  text-underline-offset: 0.2rem;
+}
+
+/* --------------------------------------------------
+   Main layout
+   -------------------------------------------------- */
+.site-main {
+  padding: 1.25rem 4% 2.5rem;
+}
+
+.hero {
+  margin: 0 0 1.5rem;
+  padding: 1.15rem 1.1rem 1.3rem;
+  background-color: var(--blue);
+  color: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  max-width: 100%;
+}
+
+.hero h1 {
+  color: var(--white);
+  margin-bottom: 0.75rem;
+}
+
+.hero h1::after {
+  content: "";
+  display: block;
+  width: 3.4rem;
+  height: 0.28rem;
+  background-color: var(--maize);
+  margin-top: 0.45rem;
+}
+
+.hero p {
+  color: var(--white);
+  margin-bottom: 0.85rem;
+}
+
+.hero a {
+  color: var(--maize);
+}
+
+.hero .btn-primary,
+.hero .btn-primary:hover,
+.hero .btn-primary:focus {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.hero .btn-secondary,
+.hero .btn-secondary:hover,
+.hero .btn-secondary:focus {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.lede {
+  font-size: 1.08rem;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.section > h2 {
+  margin-bottom: 0.85rem;
+}
+
+.photo {
+  width: 100%;
+  border-radius: var(--radius);
+  margin: 0.75rem 0 1rem;
+  box-shadow: var(--shadow);
+}
+
+.caption {
+  font-size: 0.92rem;
+  color: var(--law-stone);
+  margin-top: -0.55rem;
+  margin-bottom: 1rem;
+}
+
+/* Responsive video — MDN aspect-ratio */
+.video-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 1rem 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background-color: var(--puma-black);
+  box-shadow: var(--shadow);
+}
+
+.video-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* --------------------------------------------------
+   Buttons / CTAs
+   -------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap);
+  padding: 0.7rem 1.1rem;
+  border-radius: 0.45rem;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: var(--maize);
+  color: var(--blue);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--white);
+  color: var(--blue);
+  outline: 0.18rem solid var(--maize);
+}
+
+.btn-secondary {
+  background-color: var(--white);
+  color: var(--blue);
+  border: 0.16rem solid var(--blue);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background-color: var(--paper);
+}
+
+.cta-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-top: 0.5rem;
+}
+
+.cta-row .btn {
+  width: 100%;
+  white-space: normal;
+  font-size: 0.92rem;
+  padding-inline: 0.45rem;
+}
+
+/* --------------------------------------------------
+   Card grids — used on all four pages
+   Two tracks (not a single 1fr column)
+   -------------------------------------------------- */
+.card-grid,
+.program-grid,
+.resource-grid,
+.step-grid,
+.question-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0 0;
+}
+
+.card-grid > *,
+.program-grid > *,
+.resource-grid > *,
+.step-grid > *,
+.question-grid > *,
+.cta-row > *,
+.nav-list > *,
+.footer-grid > *,
+.brand > * {
+  min-width: 0;
+}
+
+.card,
+.program-card,
+.resource-card,
+.step-card,
+.question-card {
+  background-color: var(--card);
+  border-radius: var(--radius);
+  padding: 0.9rem 0.8rem 1rem;
+  box-shadow: var(--shadow);
+  border-top: 0.28rem solid var(--maize);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow-wrap: break-word;
+}
+
+.card:hover,
+.program-card:hover,
+.resource-card:hover,
+.step-card:hover,
+.question-card:hover {
+  transform: translateY(-0.12rem);
+  box-shadow: 0 0.5rem 1.1rem rgba(0, 39, 76, 0.16);
+}
+
+.card p,
+.program-card p,
+.resource-card p,
+.step-card p,
+.question-card p {
+  margin-bottom: 0.55rem;
+  font-size: 0.98rem;
+}
+
+.card-grid article:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.tag {
+  display: inline-block;
+  background-color: var(--blue);
+  color: var(--maize);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.45rem;
+  border-radius: 0.25rem;
+  margin-bottom: 0.45rem;
+}
+
+.resource-card a,
+.program-card a,
+.card a {
+  font-weight: 700;
+}
+
+/* Numbered process steps */
+.step-card {
+  display: grid;
+  grid-template-columns: 2.1rem 1fr;
+  gap: 0.45rem;
+  align-items: start;
+}
+
+.step-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  background-color: var(--blue);
+  color: var(--maize);
+  font-weight: 700;
+  border-radius: 50%;
+}
+
+.step-card h3 {
+  grid-column: 2;
+  margin-top: 0.2rem;
+}
+
+.step-card p {
+  grid-column: 2;
+  margin-bottom: 0;
+}
+
+/* Callout / quote */
+.callout {
+  background-color: var(--white);
+  border-left: 0.4rem solid var(--arboretum);
+  padding: 0.9rem 1rem;
+  margin: 1rem 0;
+  border-radius: 0 0.5rem 0.5rem 0;
+  box-shadow: var(--shadow);
+}
+
+.checklist li {
+  padding-left: 0.15rem;
+}
+
+/* Newsletter / aside */
+.connect {
+  background-color: var(--blue);
+  color: var(--white);
+  padding: 1.15rem 1rem 1.3rem;
+  border-radius: var(--radius);
+  margin-bottom: 0.5rem;
+}
+
+.connect h2 {
+  color: var(--white);
+}
+
+.connect p {
+  color: var(--white);
+}
+
+.connect a {
+  color: var(--maize);
+}
+
+.connect .btn-primary,
+.connect .btn-primary:hover,
+.connect .btn-primary:focus {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+/* --------------------------------------------------
+   Footer — same markup and layout on every page
+   -------------------------------------------------- */
+.site-footer {
+  background-color: var(--blue);
+  color: var(--white);
+  padding: 1.4rem 4% 1.7rem;
+  border-top: 0.4rem solid var(--maize);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.1rem 0.85rem;
+}
+
+.site-footer h2 {
+  color: var(--maize);
+  border-bottom: 0;
+  font-size: 1rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.site-footer p,
+.site-footer address,
+.site-footer li {
+  color: var(--white);
+  font-size: 0.95rem;
+  font-style: normal;
+}
+
+.site-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.site-footer a {
+  color: var(--maize);
+}
+
+.site-footer a:hover,
+.site-footer a:focus {
+  color: var(--white);
+}
+
+.footer-mark {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 3.2rem 1fr;
+  gap: 0.65rem;
+  align-items: center;
+  padding-bottom: 0.6rem;
+  border-bottom: 0.08rem solid rgba(255, 203, 5, 0.35);
+}
+
+.footer-mark img {
+  width: 3.2rem;
+  border-radius: 0.3rem;
+}
+
+.footer-mark p {
+  margin: 0;
+  font-weight: 700;
+}
+
+.copyright {
+  grid-column: 1 / -1;
+  margin: 0.4rem 0 0;
+  padding-top: 0.7rem;
+  border-top: 0.08rem solid rgba(255, 255, 255, 0.2);
+  font-size: 0.88rem;
+}
+
+/* --------------------------------------------------
+   Accessibility-only media query (allowed)
+   Hide/stop animation when the user prefers reduced motion
+   -------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+}
+
+.video-fallback {
+  margin: 0.35rem 0 0;
+  font-size: 0.95rem;
+}
