@@ -24,34 +24,56 @@
 
     <nav class="site-nav" aria-label="Primary">
         <ul class="nav-list">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="preparing.html" aria-label="Preparing for your experience">Prep</a></li>
-            <li><a href="starting.html" aria-current="page" aria-label="Starting your experience">Start</a></li>
-            <li><a href="during.html" aria-label="During your experience">During</a></li>
+            <li><a href="index.html" aria-label="Home"><span class="nav-label-short">Home</span><span class="nav-label-full">Home</span></a></li>
+            <li><a href="preparing.html" aria-label="Preparing for your experience"><span class="nav-label-short">Prep</span><span class="nav-label-full">Preparing</span></a></li>
+            <li><a href="starting.html" aria-label="Starting your experience" aria-current="page"><span class="nav-label-short">Start</span><span class="nav-label-full">Starting</span></a></li>
+            <li><a href="during.html" aria-label="During your experience"><span class="nav-label-short">During</span><span class="nav-label-full">During</span></a></li>
         </ul>
     </nav>
 
-    <main id="main" class="site-main" tabindex="-1">
+    <aside class="stage-rail" aria-label="Engaged learning stages">
+        <div class="stage-rail-inner">
+            <p class="stage-rail-label">Your stage</p>
+            <ol class="stage-rail-list">
+                <li><a href="preparing.html">Preparing</a></li>
+                <li><a href="starting.html" aria-current="page">Starting</a></li>
+                <li><a href="during.html">During</a></li>
+            </ol>
+        </div>
+    </aside>
+
+    <main id="main" class="site-main has-toc" tabindex="-1">
         <section class="hero">
-            <h1>Starting Your Experience</h1>
+            <div class="hero-copy">
+                <h1>Starting Your Experience</h1>
             <p class="lede">Turn preparation into a working partnership.</p>
             <p>Establish professional communication, run a clear kickoff, and document agreements so your team and partner share the same picture of success.</p>
             <div class="cta-row">
                 <a class="btn btn-primary" href="#kickoff">Agenda</a>
                 <a class="btn btn-secondary" href="during.html">During</a>
             </div>
+            </div>
+            <div class="hero-media">
+                <img src="images/UMSI_MastersOrientation_081825_03.jpg" alt="Students participate in icebreaker activities in a large classroom.">
+            </div>
         </section>
 
-        <section class="section">
+        <nav class="page-toc" aria-label="On this page" data-page-toc></nav>
+
+        <section class="section with-media">
             <h2>First Impressions Matter</h2>
-            <p>The starting phase is where abstract project ideas become structured, professional commitments. By establishing clear team contracts, co-creating agendas, and aligning on project scope early, you build psychological safety within your team and trust with your client.</p>
-            <p>Learning how to navigate early ambiguity is one of the most valuable professional capabilities you will gain at UMSI. Do not wait for a perfect plan. Start with a shared understanding of roles, communication, and what “done” means for this term.</p>
-            <figure>
-                <img class="photo" src="images/UMSI_MastersOrientation_081825_03.jpg" alt="Students participate in icebreaker activities in a large classroom">
-                <figcaption class="caption">Photo from the UMSI Digital Asset Portal, for SI 539 class use only.</figcaption>
-            </figure>
-            <div class="callout">
-                <p>If you have not yet reflected on positionality, team capacity, and partner context, return to <a href="preparing.html">Preparing for Your Experience</a> before you send the first email.</p>
+            <div class="text-col">
+                <p>The starting phase is where abstract project ideas become structured, professional commitments. By establishing clear team contracts, co-creating agendas, and aligning on project scope early, you build psychological safety within your team and trust with your client.</p>
+                <p>Learning how to navigate early ambiguity is one of the most valuable professional capabilities you will gain at UMSI. Do not wait for a perfect plan. Start with a shared understanding of roles, communication, and what “done” means for this term.</p>
+                <div class="callout">
+                    <p>If you have not yet reflected on positionality, team capacity, and partner context, return to <a href="preparing.html">Preparing for Your Experience</a> before you send the first email.</p>
+                </div>
+            </div>
+            <div class="media-col">
+                <figure>
+                    <img class="photo" src="images/UMSI_MastersOrientation_081825_03.jpg" alt="Students participate in icebreaker activities in a large classroom">
+                    <figcaption class="caption">Photo from the UMSI Digital Asset Portal, for SI 539 class use only.</figcaption>
+                </figure>
             </div>
         </section>
 
@@ -207,7 +229,7 @@
                     <li><a href="https://brand.umich.edu/">U-M brand guidelines</a></li>
                 </ul>
             </div>
-            <p class="copyright">&copy; 2026 Regents of the University of Michigan</p>
+            <p class="copyright">&copy; <span class="js-year">2026</span> Regents of the University of Michigan</p>
         </div>
     </footer>
 
@@ -216,5 +238,6 @@
       Kickoff agenda and email structure written for this assignment to replace missing public URLs
       with usable on-page guidance. Partnership links go to Ginsberg Center and ELO.
     -->
+    <script src="js/main.js" defer></script>
 </body>
 </html>

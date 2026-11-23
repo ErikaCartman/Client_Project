@@ -24,31 +24,53 @@
 
     <nav class="site-nav" aria-label="Primary">
         <ul class="nav-list">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="preparing.html" aria-label="Preparing for your experience">Prep</a></li>
-            <li><a href="starting.html" aria-label="Starting your experience">Start</a></li>
-            <li><a href="during.html" aria-current="page" aria-label="During your experience">During</a></li>
+            <li><a href="index.html" aria-label="Home"><span class="nav-label-short">Home</span><span class="nav-label-full">Home</span></a></li>
+            <li><a href="preparing.html" aria-label="Preparing for your experience"><span class="nav-label-short">Prep</span><span class="nav-label-full">Preparing</span></a></li>
+            <li><a href="starting.html" aria-label="Starting your experience"><span class="nav-label-short">Start</span><span class="nav-label-full">Starting</span></a></li>
+            <li><a href="during.html" aria-label="During your experience" aria-current="page"><span class="nav-label-short">During</span><span class="nav-label-full">During</span></a></li>
         </ul>
     </nav>
 
-    <main id="main" class="site-main" tabindex="-1">
+    <aside class="stage-rail" aria-label="Engaged learning stages">
+        <div class="stage-rail-inner">
+            <p class="stage-rail-label">Your stage</p>
+            <ol class="stage-rail-list">
+                <li><a href="preparing.html">Preparing</a></li>
+                <li><a href="starting.html">Starting</a></li>
+                <li><a href="during.html" aria-current="page">During</a></li>
+            </ol>
+        </div>
+    </aside>
+
+    <main id="main" class="site-main has-toc" tabindex="-1">
         <section class="hero">
-            <h1>During Your Experience</h1>
+            <div class="hero-copy">
+                <h1>During Your Experience</h1>
             <p class="lede">Navigate the active project with care and clarity.</p>
             <p>Master adaptive project management, human-centered fieldwork, and constructive feedback as you execute the work in real time.</p>
             <a class="btn btn-primary" href="#resources">Field resources</a>
+            </div>
+            <div class="hero-media">
+                <img src="images/UMSI_MastersOrientation_081825_01.jpg" alt="Students working together in a classroom with enthusiasm and engagement.">
+            </div>
         </section>
 
-        <section class="section">
+        <nav class="page-toc" aria-label="On this page" data-page-toc></nav>
+
+        <section class="section with-media">
             <h2>Navigating Friction</h2>
-            <p>The middle of an engaged learning project is where real growth happens—and where real challenges surface. Requirements shift, team dynamics evolve, clients face unexpected internal constraints, and research data yields surprising results.</p>
-            <p>The value of this phase is resilience, adaptability, and ethical agility. Learning to manage scope creep, navigate mid-project feedback, and re-align technical decisions with human needs is exactly the kind of experience that distinguishes UMSI graduates.</p>
-            <figure>
-                <img class="photo" src="images/UMSI_MastersOrientation_081825_01.jpg" alt="Students working together in a classroom, shows enthusiasm and engagement in the project.">
-                <figcaption class="caption">Photo from the UMSI Digital Asset Portal, for SI 539 class use only.</figcaption>
-            </figure>
-            <div class="callout">
-                <p>Treat friction as part of the work, not as a sign that the project is failing. Name the change, check it against your original scope, and decide with your partner—not around them.</p>
+            <div class="text-col">
+                <p>The middle of an engaged learning project is where real growth happens—and where real challenges surface. Requirements shift, team dynamics evolve, clients face unexpected internal constraints, and research data yields surprising results.</p>
+                <p>The value of this phase is resilience, adaptability, and ethical agility. Learning to manage scope creep, navigate mid-project feedback, and re-align technical decisions with human needs is exactly the kind of experience that distinguishes UMSI graduates.</p>
+                <div class="callout">
+                    <p>Treat friction as part of the work, not as a sign that the project is failing. Name the change, check it against your original scope, and decide with your partner—not around them.</p>
+                </div>
+            </div>
+            <div class="media-col">
+                <figure>
+                    <img class="photo" src="images/UMSI_MastersOrientation_081825_01.jpg" alt="Students working together in a classroom, shows enthusiasm and engagement in the project.">
+                    <figcaption class="caption">Photo from the UMSI Digital Asset Portal, for SI 539 class use only.</figcaption>
+                </figure>
             </div>
         </section>
 
@@ -190,7 +212,7 @@
                     <li><a href="https://brand.umich.edu/">U-M brand guidelines</a></li>
                 </ul>
             </div>
-            <p class="copyright">&copy; 2026 Regents of the University of Michigan</p>
+            <p class="copyright">&copy; <span class="js-year">2026</span> Regents of the University of Michigan</p>
         </div>
     </footer>
 
@@ -199,5 +221,6 @@
       Resource table converted to cards for mobile readability. HFLI worksheets are requested via
       ELO email because public file URLs were not provided in the content packet.
     -->
+    <script src="js/main.js" defer></script>
 </body>
 </html>

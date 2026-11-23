@@ -1,6 +1,6 @@
 /*
   UMSI Engaged Learning Office — mobile-first stylesheet
-  SI 539 Client Project, Deliverable 2 (mobile view)
+  SI 539 Client Project, Deliverable 2 (mobile) + Deliverable 3 (tablet/desktop)
 
   Citations:
   - Color values from University of Michigan Brand Guidelines:
@@ -18,6 +18,11 @@
   - prefers-reduced-motion rule follows WCAG 2.3.3 / A11Y Project animation guidance
   - Subtle card hover motion inspired by layout rhythm on https://stylestage.dev/
     (customized; not a copy of any Style Stage theme)
+  - Custom 404 UX ideas informed by Justinmind and UXPin 404 best-practice articles:
+    https://www.justinmind.com/web-design/best-404-pages
+    https://www.uxpin.com/studio/blog/404-page-best-practices/
+  - GitHub Pages custom 404 filename convention:
+    https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-custom-404-page-for-your-github-pages-site
 */
 
 /* Atkinson Hyperlegible self-hosted (OFL) so HTML only links two CSS files.
@@ -386,6 +391,7 @@ h3 {
 
 .section > h2 {
   margin-bottom: 0.85rem;
+  scroll-margin-top: 1rem;
 }
 
 .photo {
@@ -724,4 +730,499 @@ h3 {
 .video-fallback {
   margin: 0.35rem 0 0;
   font-size: 0.95rem;
+}
+
+/* --------------------------------------------------
+   Nav label swap (short on mobile, full on larger screens)
+   -------------------------------------------------- */
+.nav-label-full {
+  display: none;
+}
+
+.nav-label-short {
+  display: inline;
+}
+
+/* --------------------------------------------------
+   Stage progress rail + on-this-page TOC (challenging element)
+   Hidden on the default/mobile baseline; revealed in min-width queries
+   -------------------------------------------------- */
+.stage-rail {
+  display: none;
+}
+
+.page-toc {
+  display: none;
+}
+
+.hero-media {
+  display: none;
+}
+
+/* --------------------------------------------------
+   404 page (mobile base)
+   -------------------------------------------------- */
+.error-panel {
+  text-align: center;
+  padding: 1.5rem 1rem 1.75rem;
+  background-color: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border-top: 0.35rem solid var(--maize);
+  margin-bottom: 1.5rem;
+}
+
+.error-code {
+  font-size: clamp(3rem, 18vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--blue);
+  margin: 0 0 0.5rem;
+}
+
+.error-code span {
+  color: var(--maize);
+}
+
+.error-panel .lede {
+  max-width: 36rem;
+  margin-inline: auto;
+}
+
+.error-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.65rem;
+  margin: 1.1rem 0 0;
+}
+
+.error-actions .btn {
+  width: 100%;
+}
+
+/* --------------------------------------------------
+   Tablet and up — min-width only (Deliverable 3)
+   Designed primarily for ~768px tablets in landscape/portrait
+   -------------------------------------------------- */
+@media (min-width: 768px) {
+  body {
+    font-size: 1.08rem;
+  }
+
+  .site-header {
+    padding: 1rem 5%;
+  }
+
+  .brand {
+    grid-template-columns: 5rem 1fr;
+    max-width: 40rem;
+  }
+
+  .brand img {
+    width: 5rem;
+  }
+
+  .brand-unit {
+    font-size: 1.2rem;
+  }
+
+  .site-nav {
+    padding: 0.85rem 5%;
+  }
+
+  .site-nav .nav-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+
+  .nav-label-short {
+    display: none;
+  }
+
+  .nav-label-full {
+    display: inline;
+  }
+
+  .site-nav a {
+    min-height: 3rem;
+    font-size: 1rem;
+    padding: 0.65rem 0.5rem;
+  }
+
+  /* Sticky horizontal stage progress — unique for larger screens */
+  .stage-rail {
+    display: block;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: var(--white);
+    border-bottom: 0.12rem solid rgba(0, 39, 76, 0.12);
+    padding: 0.55rem 5%;
+    box-shadow: 0 0.2rem 0.55rem rgba(0, 39, 76, 0.08);
+  }
+
+  .stage-rail-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--law-stone);
+    margin: 0 0 0.35rem;
+  }
+
+  .stage-rail-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.45rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: stage;
+  }
+
+  .stage-rail-list li {
+    margin: 0;
+    counter-increment: stage;
+  }
+
+  .stage-rail-list a {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.45rem;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0.45rem 0.65rem;
+    text-decoration: none;
+    color: var(--blue);
+    background-color: var(--paper);
+    border-radius: 0.45rem;
+    border: 0.12rem solid transparent;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .stage-rail-list a::before {
+    content: counter(stage);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.55rem;
+    height: 1.55rem;
+    border-radius: 50%;
+    background-color: var(--blue);
+    color: var(--maize);
+    font-size: 0.85rem;
+  }
+
+  .stage-rail-list a:hover,
+  .stage-rail-list a:focus {
+    border-color: var(--arboretum);
+    color: var(--blue);
+  }
+
+  .stage-rail-list a[aria-current="page"] {
+    background-color: var(--blue);
+    color: var(--white);
+    border-color: var(--maize);
+  }
+
+  .stage-rail-list a[aria-current="page"]::before {
+    background-color: var(--maize);
+    color: var(--blue);
+  }
+
+  .site-main {
+    padding: 1.6rem 5% 3rem;
+    max-width: 58rem;
+    margin-inline: auto;
+  }
+
+  .section > h2 {
+    scroll-margin-top: 5.5rem;
+  }
+
+  .hero {
+    padding: 1.5rem 1.5rem 1.6rem;
+  }
+
+  h1 {
+    font-size: clamp(1.7rem, 3vw, 2.15rem);
+  }
+
+  h2 {
+    font-size: clamp(1.35rem, 2.4vw, 1.65rem);
+  }
+
+  .page-toc {
+    display: block;
+    margin: 0 0 1.5rem;
+    padding: 0.9rem 1rem;
+    background-color: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border-left: 0.28rem solid var(--maize);
+  }
+
+  .page-toc-title {
+    margin: 0 0 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--law-stone);
+  }
+
+  .page-toc-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .page-toc-list li {
+    margin: 0;
+  }
+
+  .page-toc-list a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.4rem;
+    padding: 0.35rem 0.7rem;
+    background-color: var(--paper);
+    border-radius: 0.35rem;
+    text-decoration: none;
+    color: var(--blue);
+    font-weight: 700;
+    font-size: 0.92rem;
+    border: 0.1rem solid transparent;
+  }
+
+  .page-toc-list a:hover,
+  .page-toc-list a:focus {
+    border-color: var(--arboretum);
+  }
+
+  .page-toc-list a[aria-current="true"] {
+    background-color: var(--blue);
+    color: var(--maize);
+    text-decoration: underline;
+    text-underline-offset: 0.15rem;
+  }
+
+  .card-grid,
+  .program-grid,
+  .resource-grid,
+  .step-grid,
+  .question-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .card-grid article:last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+
+  .card-grid article:last-child:nth-child(3n + 1):nth-last-child(1) {
+    grid-column: 1 / -1;
+  }
+
+  .cta-row {
+    max-width: 28rem;
+  }
+
+  .error-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 32rem;
+    margin-inline: auto;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .footer-mark {
+    grid-column: 1 / -1;
+  }
+
+  .site-footer {
+    padding: 1.7rem 5% 2rem;
+  }
+
+  .connect {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 1rem 1.5rem;
+    align-items: center;
+    padding: 1.4rem 1.4rem;
+  }
+
+  .connect h2 {
+    grid-column: 1 / -1;
+  }
+}
+
+/* --------------------------------------------------
+   Desktop and up — structural layout shift
+   Designed for ~1100px+ laptops/desktops
+   -------------------------------------------------- */
+@media (min-width: 1100px) {
+  .site-header {
+    padding: 1.1rem 6%;
+  }
+
+  .site-nav {
+    padding: 0.9rem 6%;
+  }
+
+  .site-nav a {
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+  }
+
+  .stage-rail {
+    padding: 0.65rem 6%;
+  }
+
+  .stage-rail-inner {
+    max-width: 72rem;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .stage-rail-label {
+    margin: 0;
+  }
+
+  .site-main {
+    max-width: 72rem;
+    padding: 2rem 6% 3.5rem;
+  }
+
+  /* Content pages: main column + sticky TOC */
+  .site-main.has-toc {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 15.5rem;
+    gap: 1.75rem;
+    align-items: start;
+  }
+
+  .site-main.has-toc > .hero,
+  .site-main.has-toc > .section,
+  .site-main.has-toc > .connect,
+  .site-main.has-toc > .error-panel {
+    grid-column: 1;
+  }
+
+  .site-main.has-toc > .page-toc {
+    grid-column: 2;
+    grid-row: 1 / span 20;
+    position: sticky;
+    top: 5.5rem;
+    align-self: start;
+    margin: 0;
+  }
+
+  .page-toc-list {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  .page-toc-list a {
+    width: 100%;
+  }
+
+  /* Hero becomes a two-column composition with photo */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 1.25rem;
+    align-items: stretch;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .hero-copy {
+    padding: 1.75rem 1.6rem 1.85rem;
+  }
+
+  .hero-media {
+    display: block;
+    margin: 0;
+    min-height: 100%;
+  }
+
+  .hero-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+  }
+
+  .program-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .resource-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .step-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* Photo + text pairings breathe on wide screens */
+  .section.with-media {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem 1.5rem;
+    align-items: start;
+  }
+
+  .section.with-media > h2 {
+    grid-column: 1 / -1;
+  }
+
+  .section.with-media > .media-col {
+    order: 2;
+  }
+
+  .section.with-media > .text-col {
+    order: 1;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1.4fr 1fr 1fr;
+    max-width: 72rem;
+    margin-inline: auto;
+  }
+
+  .footer-mark {
+    grid-column: auto;
+    border-bottom: 0;
+    padding-bottom: 0;
+    align-self: start;
+  }
+
+  .copyright {
+    grid-column: 1 / -1;
+  }
+
+  .error-panel {
+    padding: 2.25rem 2rem;
+  }
+
+  .error-actions {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    max-width: 48rem;
+  }
+
+  .connect {
+    grid-template-columns: 1.6fr auto;
+  }
 }
