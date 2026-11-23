@@ -783,7 +783,6 @@ h3 {
 .error-code span {
   display: inline-block;
   color: var(--blue);
-  background-color: var(--blue);
   padding: 0.05em 0.18em 0.08em;
   border-radius: 0.2em;
   line-height: 1;
