@@ -780,8 +780,15 @@ h3 {
   margin: 0 0 0.5rem;
 }
 
+/* Maize on white fails WCAG contrast (~1.5:1). Use maize on Michigan Blue
+   (approved brand pairing) so the accent digit still reads clearly. */
 .error-code span {
+  display: inline-block;
   color: var(--maize);
+  background-color: var(--blue);
+  padding: 0.05em 0.18em 0.08em;
+  border-radius: 0.2em;
+  line-height: 1;
 }
 
 .error-panel .lede {
